@@ -3,15 +3,10 @@ package com.solicode.helloconter
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.*
-import androidx.compose.runtime.*
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
-
+import com.solicode.helloconter.ui.MainScreen
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -23,22 +18,7 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun App() {
     MaterialTheme {
-        Greeting()
-    }
-}
-
-
-@Composable
-fun Greeting() {
-    var count by remember { mutableStateOf(0) }
-
-    Box(
-        modifier = Modifier.fillMaxSize(),
-        contentAlignment = Alignment.Center
-    ) {
-        Button(onClick = { count++ }) {
-            Text("Hello, count = $count")
-        }
+        MainScreen()
     }
 }
 
@@ -47,4 +27,3 @@ fun Greeting() {
 fun PreviewApp() {
     App()
 }
-
