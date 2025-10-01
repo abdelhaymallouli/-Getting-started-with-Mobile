@@ -9,11 +9,19 @@ import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
+import com.solicode.helloconter.R
 
 @Composable
 fun CompteurSection(modifier: Modifier = Modifier) {
-    var count by rememberSaveable  { mutableStateOf(0) }
+    var count by rememberSaveable { mutableStateOf(0) }
+
+    // Hoist stringResource calls to the composable function's scope
+    val decrementContentDescription = stringResource(id = R.string.cd_decrement)
+    val incrementContentDescription = stringResource(R.string.cd_increment)
 
     Column(
         modifier = modifier.fillMaxWidth(),
@@ -31,9 +39,11 @@ fun CompteurSection(modifier: Modifier = Modifier) {
             IconButton(
                 onClick = { if (count > 0) count-- },
                 enabled = count > 0,
-                modifier = Modifier.size(48.dp)
+                modifier = Modifier
+                    .size(48.dp)
+                    .semantics { contentDescription = decrementContentDescription } // Use the hoisted value
             ) {
-                Icon(Icons.Filled.Remove, contentDescription = "Diminuer")
+                Icon(Icons.Filled.Remove, contentDescription = null)
             }
 
             Text(
@@ -44,9 +54,11 @@ fun CompteurSection(modifier: Modifier = Modifier) {
 
             IconButton(
                 onClick = { count++ },
-                modifier = Modifier.size(48.dp)
+                modifier = Modifier
+                    .size(48.dp)
+                    .semantics { contentDescription = incrementContentDescription } // Use the hoisted value
             ) {
-                Icon(Icons.Filled.Add, contentDescription = "Augmenter")
+                Icon(Icons.Filled.Add, contentDescription = null)
             }
         }
     }
